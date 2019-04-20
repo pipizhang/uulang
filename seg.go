@@ -21,6 +21,10 @@ type SegWord struct {
 
 type SegWords []*SegWord
 
+func LoadSegDictionaray(file string) {
+	segmenter.LoadDictionary(file)
+}
+
 func Cut(text string) *SegWords {
 	btext := []byte(text)
 	segs := segmenter.Segment(btext)

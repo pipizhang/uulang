@@ -1,4 +1,4 @@
-module uulang
+module github.com/pipizhang/uulang
 
 go 1.12
 

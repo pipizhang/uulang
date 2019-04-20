@@ -21,7 +21,7 @@ type SegWord struct {
 
 type SegWords []*SegWord
 
-func LoadSegDictionaray(file string) {
+func LoadSegDictionary(file string) {
 	segmenter.LoadDictionary(file)
 }
 

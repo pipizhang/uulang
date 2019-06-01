@@ -19,3 +19,12 @@ func TestIsSimplified(t *testing.T) {
 	assert.True(t, IsSimplified("你好，世界"))
 	assert.True(t, IsSimplified("你好牛"))
 }
+
+func TestIsTraditional(t *testing.T) {
+	assert.False(t, IsTraditional("新闻"))
+	assert.True(t, IsTraditional("新聞"))
+	assert.True(t, IsTraditional("可信度都值得懷疑"))
+	assert.False(t, IsTraditional("可信度都值得怀疑"))
+	assert.True(t, IsTraditional("你好，世界"))
+	assert.True(t, IsTraditional("你好牛"))
+}

@@ -39,7 +39,7 @@ func T2S(in string) (string, error) {
 	return out, nil
 }
 
-// IsSimplified guess word is simpliefed or traditional
+// IsSimplified guess word whether is a simpliefed word
 func IsSimplified(in string) bool {
 	t, _ := S2T(in)
 	if in != t {
@@ -47,6 +47,21 @@ func IsSimplified(in string) bool {
 	}
 
 	s, _ := T2S(t)
+	if t == s {
+		return true
+	}
+
+	return false
+}
+
+// IsTraditional guess word whether is a traditional word
+func IsTraditional(in string) bool {
+	s, _ := T2S(in)
+	if in != s {
+		return true
+	}
+
+	t, _ := S2T(s)
 	if t == s {
 		return true
 	}

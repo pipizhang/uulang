@@ -38,3 +38,18 @@ func T2S(in string) (string, error) {
 	}
 	return out, nil
 }
+
+// IsSimplified guess word is simpliefed or traditional
+func IsSimplified(in string) bool {
+	t, _ := S2T(in)
+	if in != t {
+		return true
+	}
+
+	s, _ := T2S(t)
+	if t == s {
+		return true
+	}
+
+	return false
+}

@@ -1,6 +1,9 @@
 package uulang
 
 import (
+	"fmt"
+	"os"
+
 	"github.com/liuzl/gocc"
 )
 
@@ -11,13 +14,19 @@ var (
 
 func init() {
 	var err error
+
+	config_path := os.Getenv("GOCC_CONFIG_PATH")
+	if len(config_path) > 0 {
+		gocc.Dir = &config_path
+	}
+
 	s2t, err = gocc.New("s2t")
 	if err != nil {
-		panic("Failed to load OpenCC(s2t)")
+		panic(fmt.Sprintf("Failed to load OpenCC(s2t), %s", err))
 	}
 	t2s, err = gocc.New("t2s")
 	if err != nil {
-		panic("Failed to load OpenCC(t2s)")
+		panic(fmt.Sprintf("Failed to load OpenCC(t2s), %s", err))
 	}
 }
 

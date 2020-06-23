@@ -27,7 +27,11 @@ func LoadSegDictionary(file string) {
 	segmenter.LoadDictionary(file)
 }
 
-func Cut(text string) *SegWords {
+func GetSegmenter() *sego.Segmenter {
+	return &segmenter
+}
+
+func Cut(text string) SegWords {
 	btext := []byte(text)
 	segs := segmenter.Segment(btext)
 
@@ -35,18 +39,45 @@ func Cut(text string) *SegWords {
 	for k, seg := range segs {
 		_text := seg.Token().Text()
 		_pos := seg.Token().Pos()
+		_py := LazyPinyinTone(_text)
+		_pyn := LazyPinyinTone3(_text)
 
 		segWords = append(segWords, &SegWord{
-			Id:   k,
-			Word: _text,
-			Pos:  _pos,
+			Id:      k,
+			Word:    _text,
+			Pos:     _pos,
+			Pinyin:  _py,
+			PinyinN: _pyn,
 		})
 	}
 
-	return &segWords
+	return segWords
 }
 
-func CutWithPinyin(text string) *SegWords {
+func Cut4Search(text string) SegWords {
+	btext := []byte(text)
+	segs := segmenter.Segment(btext)
+
+	words := sego.SegmentsToSlice(segs, true)
+
+	var segWords SegWords
+	for k, w := range words {
+		_text := w
+		_py := LazyPinyinTone(_text)
+		_pyn := LazyPinyinTone3(_text)
+
+		segWords = append(segWords, &SegWord{
+			Id:      k,
+			Word:    _text,
+			Pinyin:  _py,
+			PinyinN: _pyn,
+		})
+	}
+
+	return segWords
+}
+
+func CutWithPinyin(text string) SegWords {
 	btext := []byte(text)
 	segs := segmenter.Segment(btext)
 	re := regexp.MustCompile(`(\d)+`)
@@ -79,5 +110,5 @@ func CutWithPinyin(text string) *SegWords {
 		}
 	}
 
-	return &segWords
+	return segWords
 }

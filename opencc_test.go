@@ -7,17 +7,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func fileExists(filename string) bool {
-	info, err := os.Stat(filename)
-	if os.IsNotExist(err) {
-		return false
-	}
-	return !info.IsDir()
-}
-
 func checkOpencc(t *testing.T) {
-	gopath := os.Getenv("GOPATH")
-	if !fileExists(gopath + "/src/github.com/liuzl/gocc/config/s2t.json") {
+	if os.Getenv("OPENCC") == "no" {
 		t.Skip("Skipping opencc")
 	}
 }

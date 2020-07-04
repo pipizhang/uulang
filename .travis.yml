@@ -3,8 +3,8 @@ sudo: false
 go:
   - 1.13.x
 before_install:
-  - apt update
-  - apt install opencc -y
+  - sudo apt-get update
+  - sudo apt-get -y install opencc
 script:
   - go test -v -race ./...
 branches:

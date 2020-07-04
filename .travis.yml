@@ -5,6 +5,9 @@ go:
 before_install:
   - sudo apt-get update
   - sudo apt-get -y install opencc
+install:
+  - go get github.com/liuzl/gocc
+  - go mod verify
 script:
   - go test -v -race ./...
 branches:

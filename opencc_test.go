@@ -1,17 +1,35 @@
 package uulang
 
 import (
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
+func fileExists(filename string) bool {
+	info, err := os.Stat(filename)
+	if os.IsNotExist(err) {
+		return false
+	}
+	return !info.IsDir()
+}
+
+func checkOpencc(t *testing.T) {
+	gopath := os.Getenv("GOPATH")
+	if !fileExists(gopath + "/src/github.com/liuzl/gocc/config/s2t.json") {
+		t.Skip("Skipping opencc")
+	}
+}
+
 func TestS2T(t *testing.T) {
+	checkOpencc(t)
 	text, _ := S2T("如果这都不算爱")
 	assert.Equal(t, "如果這都不算愛", text)
 }
 
 func TestIsSimplified(t *testing.T) {
+	checkOpencc(t)
 	assert.True(t, IsSimplified("新闻"))
 	assert.False(t, IsSimplified("新聞"))
 	assert.False(t, IsSimplified("可信度都值得懷疑"))
@@ -21,6 +39,7 @@ func TestIsSimplified(t *testing.T) {
 }
 
 func TestIsTraditional(t *testing.T) {
+	checkOpencc(t)
 	assert.False(t, IsTraditional("新闻"))
 	assert.True(t, IsTraditional("新聞"))
 	assert.True(t, IsTraditional("可信度都值得懷疑"))

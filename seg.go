@@ -111,6 +111,11 @@ func CutWithPinyin(text string) SegWords {
 			_pyn := LazyPinyinTone3(_text)
 			_pyt := []int{}
 
+			// set pos = "unknow" if pinyin != ""
+			if _pos == "x" && len(_py) > 0 {
+				_pos = "unknown"
+			}
+
 			for _, _tmp := range _pyn {
 				m := re.FindString(_tmp)
 				i, _ := strconv.Atoi(m)

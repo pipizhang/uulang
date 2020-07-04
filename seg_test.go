@@ -38,3 +38,13 @@ func TestCut4Search(t *testing.T) {
 		assert.Equal(t, v.Word, ep[k])
 	}
 }
+
+func TestCutWithPinyin(t *testing.T) {
+	setup()
+
+	sword := CutWithPinyin("鞋濕了")
+
+	assert.Equal(t, sword[0].PinyinT[0], 2)
+	assert.Equal(t, sword[1].Pos, "unknown")
+	assert.Equal(t, sword[2].Pos, "ul")
+}

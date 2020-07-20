@@ -48,3 +48,16 @@ func TestCutWithPinyin(t *testing.T) {
 	assert.Equal(t, sword[1].Pos, "unknown")
 	assert.Equal(t, sword[2].Pos, "ul")
 }
+
+func TestCut2Words(t *testing.T) {
+	setup()
+
+	words := Cut2Words("中华人民共和国共和国", true)
+	assert.Equal(t, "中华 人民 共和 国 共和国 人民共和国 中华人民共和国", strings.Join(words, " "))
+
+	words = Cut2Words("中华人民共和国", false)
+	assert.Equal(t, "中华人民共和国", strings.Join(words, " "))
+
+	words = Cut2Words("昨天是阴天今天也是阴天", true)
+	assert.Equal(t, "昨天 是 阴天 今天 也", strings.Join(words, " "))
+}

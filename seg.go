@@ -135,3 +135,24 @@ func CutWithPinyin(text string) SegWords {
 
 	return segWords
 }
+
+func Cut2Words(text string, searchMode bool) []string {
+	btext := []byte(text)
+	segs := segmenter.Segment(btext)
+
+	var (
+		words = make([]string, 0)
+		keys  = make(map[string]bool, 0)
+	)
+	{
+		wslice := sego.SegmentsToSlice(segs, searchMode)
+		for _, w := range wslice {
+			if _, ok := keys[w]; !ok {
+				words = append(words, w)
+				keys[w] = true
+			}
+		}
+	}
+
+	return words
+}

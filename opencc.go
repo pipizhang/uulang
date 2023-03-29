@@ -22,11 +22,11 @@ func init() {
 
 	s2t, err = gocc.New("s2t")
 	if err != nil {
-		panic(fmt.Sprintf("Failed to load OpenCC(s2t), %s", err))
+		fmt.Printf("Failed to load OpenCC(s2t), %s\n", err)
 	}
 	t2s, err = gocc.New("t2s")
 	if err != nil {
-		panic(fmt.Sprintf("Failed to load OpenCC(t2s), %s", err))
+		fmt.Printf("Failed to load OpenCC(t2s), %s\n", err)
 	}
 }
 
